@@ -11,8 +11,12 @@ import {
   Stack,
   Checkbox,
   Button,
-  Container 
+  Container, 
+  FormControl,
+  Flex,
+  Input,
 } from "@chakra-ui/react"
+
 
 interface Categories {
   bread: any[]
@@ -21,6 +25,9 @@ interface Categories {
   breadValue: boolean;
   cakeValue: boolean;
   noodleValue: boolean;
+  favoriteValue: boolean,
+  featuredValue: boolean,
+  newValue: boolean,
   checkboxVisible: boolean
   name: string[]
   checked: boolean
@@ -33,9 +40,12 @@ export default class Sidebar extends React.Component<{}, Categories> {
       bread: [],
       cake: [],
       noodles: [],
-      breadValue: true,
-      cakeValue: true,
-      noodleValue: true,
+      breadValue: false,
+      cakeValue: false,
+      noodleValue: false,
+      favoriteValue: false,
+      featuredValue: false,
+      newValue: false,
       checkboxVisible: true,
       name: [],
       checked: true,
@@ -54,6 +64,9 @@ export default class Sidebar extends React.Component<{}, Categories> {
         breadValue,
         cakeValue,
         noodleValue,
+        favoriteValue,
+        featuredValue,
+        newValue,
       } = this.state;
   
       let message = "";
@@ -63,7 +76,13 @@ export default class Sidebar extends React.Component<{}, Categories> {
       } if (cakeValue) {
         message += "cake,";
       } if (noodleValue) {
-        message += "noodle";
+        message += "noodle, ";
+      } if (favoriteValue) {
+        message += "favorite, ";
+      } if (featuredValue) {
+        message += "featured, ";
+      } if (newValue) {
+        message += "new, ";
       }
   
       if (message) {
@@ -72,6 +91,7 @@ export default class Sidebar extends React.Component<{}, Categories> {
         alert("Nothing to select");
       }
     };
+
 
     toggleCheckboxVisibility = () => {
       this.setState((prevState) => ({
@@ -87,6 +107,21 @@ export default class Sidebar extends React.Component<{}, Categories> {
               <Container margin={8}>
               <Heading>Filter</Heading>
               <Divider/>
+              <FormControl mt="20px" >
+                <Flex>
+                  <Input/>
+                    <center>
+                      <Button
+                            colorScheme="teal"
+                            variant="solid"
+                            w="50%"
+                            mr="20px"
+                            onClick={() => this.handleButtonClick()}>
+                            View
+                      </Button>
+                    </center>
+                </Flex>
+              </FormControl>
               <Accordion defaultIndex={[0]} allowMultiple>
                 <AccordionItem>
                   <h2>
@@ -122,14 +157,6 @@ export default class Sidebar extends React.Component<{}, Categories> {
                       checked={this.state.noodleValue}
                       onChange={this.handleCheckbox}>Noodles</Checkbox>
 
-                      <Button
-                        colorScheme="teal"
-                        variant="solid"
-                        w="50%"
-                        mt="20px"
-                        onClick={() => this.handleButtonClick()}>
-                        View
-                      </Button>
                     </>)}
                     </Stack>
                   </AccordionPanel>
@@ -145,10 +172,32 @@ export default class Sidebar extends React.Component<{}, Categories> {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <Stack>
+                    {checkboxVisible && (
+                      <>
+                      <Checkbox size="md"
+                      colorScheme="red"
+                      type="checkbox"
+                      name="newValue"
+                      checked={this.state.newValue}
+                      onChange={this.handleCheckbox}>New</Checkbox>
+
+                      <Checkbox size="md"
+                      colorScheme="red"
+                      type="checkbox"
+                      name="newValue"
+                      checked={this.state.favoriteValue}
+                      onChange={this.handleCheckbox}>Favorite</Checkbox>
+
+                      <Checkbox size="md"
+                      colorScheme="red"
+                      type="checkbox"
+                      name="newValue"
+                      checked={this.state.featuredValue}
+                      onChange={this.handleCheckbox}>Featured</Checkbox>
+                      </>
+                    )}
+                    </Stack>
                   </AccordionPanel>
                 </AccordionItem>
               </Accordion>

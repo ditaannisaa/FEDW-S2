@@ -9,7 +9,7 @@ import axios from "axios";
 interface Food {
     name: string,
     id: number,
-    categories: [],
+    categories: string[],
     description: string,
     imageUrl: string,
     badge: string
@@ -37,7 +37,6 @@ export default class Home extends React.Component<{}, State> {
       .catch((error) => {
         console.log(error)
       })
-    
   }
 
   render() {
@@ -50,7 +49,13 @@ export default class Home extends React.Component<{}, State> {
             <GridItem p={8} h="full" bg="teal.50">
               <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={4}>
                 {this.state.data.map((e: Food, id:number ) => (
-                  <CardProduct key={id} name={e.name} description={e.description} imageUrl={e.imageUrl} categories={e.categories} badge={e.badge}/>
+                  <CardProduct 
+                  key={id} 
+                  name={e.name} 
+                  description={e.description} 
+                  imageUrl={e.imageUrl} 
+                  categories={e.categories} 
+                  badge={e.badge}/>
                 ))}
               </Grid>
             </GridItem>

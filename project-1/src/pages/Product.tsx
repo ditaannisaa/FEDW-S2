@@ -6,7 +6,7 @@ import { Card, CardBody, Stack, Image, Heading, Text, Divider, CardFooter, Box }
 interface IProps{
     name?: string
     description?: string
-    categories?: []
+    categories?: string[]
     imageUrl?: string
     badge?: string
   }
@@ -34,7 +34,20 @@ export default class CardProduct extends React.Component<IProps> {
                     </CardBody>
                     <Divider />
                     <CardFooter>
-                        <Box mt={2} w='fit-content' border='1px solid gray' px={2} rounded='lg'>{this.props.categories}</Box>
+                            {this.props.categories?.map((category, index) => {
+                            return (
+                                <Box
+                                bg="teal.500"
+                                color="white"
+                                borderRadius={5}
+                                mr={5}
+                                mt={2}
+                                key={index}
+                                >
+                                <Text p={2}>{category} </Text>
+                                </Box>
+                            );
+                            })}
                     </CardFooter>
                     <Text pos='absolute' top={-3} left='20' px={2} rounded='lg' color='white' 
                         bg={this.props.badge === 'NEW' ? "green" : this.props.badge === 'FAVORITE' ? 'red': this.props.badge === 'FEATURED' ? "blue" : ''}>{this.props.badge}!!!
