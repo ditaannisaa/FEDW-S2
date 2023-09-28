@@ -44,7 +44,7 @@ export default class Home extends React.Component<{}, State> {
     return(
       <React.Fragment>
         <ChakraProvider>
-          <Grid gridTemplateColumns="350px 1fr">
+          <Grid gridTemplateColumns={{ base: "1fr", md: "350px 1fr" }}>
             <Sidebar/>
             <GridItem p={8} h="full" bg="teal.50">
               <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={4}>
